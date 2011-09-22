@@ -8,11 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class DrgnIteration;
+
 @interface DrgnAppDelegate : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSView *view;
+@property (nonatomic, assign) IBOutlet NSWindow *window;
+@property (nonatomic, assign) IBOutlet NSView *view;
 
-@property (readonly) NSUInteger iteration;
+@property (nonatomic, retain) DrgnIteration *iteration;
+@property (nonatomic, assign) NSUInteger iterationCount;
 
 @end

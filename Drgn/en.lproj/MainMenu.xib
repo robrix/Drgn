@@ -2120,35 +2120,35 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: iteration</string>
+						<string key="label">value: iterationCount</string>
 						<reference key="source" ref="435166076"/>
 						<reference key="destination" ref="976324537"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="435166076"/>
 							<reference key="NSDestination" ref="976324537"/>
-							<string key="NSLabel">value: iteration</string>
+							<string key="NSLabel">value: iterationCount</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">iteration</string>
+							<string key="NSKeyPath">iterationCount</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">550</int>
+					<int key="connectionID">552</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: iteration</string>
+						<string key="label">value: iterationCount</string>
 						<reference key="source" ref="273375712"/>
 						<reference key="destination" ref="976324537"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="273375712"/>
 							<reference key="NSDestination" ref="976324537"/>
-							<string key="NSLabel">value: iteration</string>
+							<string key="NSLabel">value: iterationCount</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">iteration</string>
+							<string key="NSKeyPath">iterationCount</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">551</int>
+					<int key="connectionID">553</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3571,7 +3571,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">551</int>
+			<int key="maxID">553</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

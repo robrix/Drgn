@@ -16,6 +16,9 @@
 		D452BBE1142B386B00338DEA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D452BBE0142B386B00338DEA /* SenTestingKit.framework */; };
 		D452BBE2142B386B00338DEA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D452BBC2142B386A00338DEA /* Cocoa.framework */; };
 		D452BBEA142B386B00338DEA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D452BBE8142B386B00338DEA /* InfoPlist.strings */; };
+		D4D39D38142B3DB6003DA287 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4D39D35142B3DA3003DA287 /* QuartzCore.framework */; };
+		D4D39D3F142B4638003DA287 /* DrgnIteration.m in Sources */ = {isa = PBXBuildFile; fileRef = D4D39D3E142B4638003DA287 /* DrgnIteration.m */; };
+		D4D39D43142B4A96003DA287 /* DrgnIterationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4D39D41142B4A75003DA287 /* DrgnIterationTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,10 @@
 		D452BBE0142B386B00338DEA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D452BBE7142B386B00338DEA /* DrgnTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DrgnTests-Info.plist"; sourceTree = "<group>"; };
 		D452BBE9142B386B00338DEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D4D39D35142B3DA3003DA287 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D4D39D3D142B4638003DA287 /* DrgnIteration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrgnIteration.h; sourceTree = "<group>"; };
+		D4D39D3E142B4638003DA287 /* DrgnIteration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrgnIteration.m; sourceTree = "<group>"; };
+		D4D39D41142B4A75003DA287 /* DrgnIterationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrgnIterationTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D452BBC3142B386A00338DEA /* Cocoa.framework in Frameworks */,
+				D4D39D38142B3DB6003DA287 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +99,7 @@
 		D452BBC1142B386A00338DEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4D39D35142B3DA3003DA287 /* QuartzCore.framework */,
 				D452BBC2142B386A00338DEA /* Cocoa.framework */,
 				D452BBE0142B386B00338DEA /* SenTestingKit.framework */,
 				D452BBC4142B386A00338DEA /* Other Frameworks */,
@@ -111,8 +120,9 @@
 		D452BBC8142B386A00338DEA /* Drgn */ = {
 			isa = PBXGroup;
 			children = (
-				D452BBF8142B38D100338DEA /* Controller */,
+				D4D39D3C142B45F5003DA287 /* Model */,
 				D452BBF7142B389100338DEA /* View */,
+				D452BBF8142B38D100338DEA /* Controller */,
 				D452BBD7142B386B00338DEA /* MainMenu.xib */,
 				D452BBC9142B386A00338DEA /* Supporting Files */,
 			);
@@ -135,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				D452BBE6142B386B00338DEA /* Supporting Files */,
+				D4D39D41142B4A75003DA287 /* DrgnIterationTests.m */,
 			);
 			path = DrgnTests;
 			sourceTree = "<group>";
@@ -162,6 +173,15 @@
 				D452BBD5142B386A00338DEA /* DrgnAppDelegate.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		D4D39D3C142B45F5003DA287 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D4D39D3D142B4638003DA287 /* DrgnIteration.h */,
+				D4D39D3E142B4638003DA287 /* DrgnIteration.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +293,7 @@
 			files = (
 				D452BBCF142B386A00338DEA /* main.m in Sources */,
 				D452BBD6142B386A00338DEA /* DrgnAppDelegate.m in Sources */,
+				D4D39D3F142B4638003DA287 /* DrgnIteration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4D39D43142B4A96003DA287 /* DrgnIterationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +465,7 @@
 				D452BBF3142B386B00338DEA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D452BBF4142B386B00338DEA /* Build configuration list for PBXNativeTarget "DrgnTests" */ = {
 			isa = XCConfigurationList;
@@ -451,6 +474,7 @@
 				D452BBF6142B386B00338DEA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
