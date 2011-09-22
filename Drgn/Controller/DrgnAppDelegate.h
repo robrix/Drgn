@@ -8,10 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface DrgnAppDelegate : NSObject <NSApplicationDelegate> {
-	NSWindow *window;
-}
+@interface DrgnAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSView *view;
+
+@property (readonly) NSUInteger iteration;
 
 @end

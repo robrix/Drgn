@@ -16,8 +16,6 @@
 		D452BBE1142B386B00338DEA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D452BBE0142B386B00338DEA /* SenTestingKit.framework */; };
 		D452BBE2142B386B00338DEA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D452BBC2142B386A00338DEA /* Cocoa.framework */; };
 		D452BBEA142B386B00338DEA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D452BBE8142B386B00338DEA /* InfoPlist.strings */; };
-		D452BBEC142B386B00338DEA /* DrgnTests.h in Resources */ = {isa = PBXBuildFile; fileRef = D452BBEB142B386B00338DEA /* DrgnTests.h */; };
-		D452BBEE142B386B00338DEA /* DrgnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D452BBED142B386B00338DEA /* DrgnTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,20 +34,18 @@
 		D452BBC5142B386A00338DEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		D452BBC6142B386A00338DEA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D452BBC7142B386A00338DEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D452BBCA142B386A00338DEA /* Drgn-Info.plist */ = {isa = PBXFileReference; path = "Drgn-Info.plist"; sourceTree = "<group>"; };
+		D452BBCA142B386A00338DEA /* Drgn-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Drgn-Info.plist"; sourceTree = "<group>"; };
 		D452BBCC142B386A00338DEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D452BBCE142B386A00338DEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D452BBD0142B386A00338DEA /* Drgn-Prefix.pch */ = {isa = PBXFileReference; path = "Drgn-Prefix.pch"; sourceTree = "<group>"; };
+		D452BBD0142B386A00338DEA /* Drgn-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Drgn-Prefix.pch"; sourceTree = "<group>"; };
 		D452BBD2142B386A00338DEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		D452BBD4142B386A00338DEA /* DrgnAppDelegate.h */ = {isa = PBXFileReference; path = DrgnAppDelegate.h; sourceTree = "<group>"; };
+		D452BBD4142B386A00338DEA /* DrgnAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrgnAppDelegate.h; sourceTree = "<group>"; };
 		D452BBD5142B386A00338DEA /* DrgnAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrgnAppDelegate.m; sourceTree = "<group>"; };
 		D452BBD8142B386B00338DEA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		D452BBDF142B386B00338DEA /* DrgnTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrgnTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D452BBE0142B386B00338DEA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		D452BBE7142B386B00338DEA /* DrgnTests-Info.plist */ = {isa = PBXFileReference; path = "DrgnTests-Info.plist"; sourceTree = "<group>"; };
+		D452BBE7142B386B00338DEA /* DrgnTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DrgnTests-Info.plist"; sourceTree = "<group>"; };
 		D452BBE9142B386B00338DEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D452BBEB142B386B00338DEA /* DrgnTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrgnTests.h; sourceTree = "<group>"; };
-		D452BBED142B386B00338DEA /* DrgnTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrgnTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +111,8 @@
 		D452BBC8142B386A00338DEA /* Drgn */ = {
 			isa = PBXGroup;
 			children = (
-				D452BBD4142B386A00338DEA /* DrgnAppDelegate.h */,
-				D452BBD5142B386A00338DEA /* DrgnAppDelegate.m */,
+				D452BBF8142B38D100338DEA /* Controller */,
+				D452BBF7142B389100338DEA /* View */,
 				D452BBD7142B386B00338DEA /* MainMenu.xib */,
 				D452BBC9142B386A00338DEA /* Supporting Files */,
 			);
@@ -138,8 +134,6 @@
 		D452BBE5142B386B00338DEA /* DrgnTests */ = {
 			isa = PBXGroup;
 			children = (
-				D452BBEB142B386B00338DEA /* DrgnTests.h */,
-				D452BBED142B386B00338DEA /* DrgnTests.m */,
 				D452BBE6142B386B00338DEA /* Supporting Files */,
 			);
 			path = DrgnTests;
@@ -152,6 +146,22 @@
 				D452BBE8142B386B00338DEA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D452BBF7142B389100338DEA /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D452BBF8142B38D100338DEA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D452BBD4142B386A00338DEA /* DrgnAppDelegate.h */,
+				D452BBD5142B386A00338DEA /* DrgnAppDelegate.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,7 +245,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D452BBEA142B386B00338DEA /* InfoPlist.strings in Resources */,
-				D452BBEC142B386B00338DEA /* DrgnTests.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,7 +280,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D452BBEE142B386B00338DEA /* DrgnTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
