@@ -48,9 +48,9 @@
 	}
 	[self didChangeValueForKey:@"iteration"];
 	
-//	for(CALayer *layer in view.layer.sublayers) {
-//		[layer removeFromSuperlayer];
-//	}
+	for(CALayer *layer in [[view.layer.sublayers copy] autorelease]) {
+		[layer removeFromSuperlayer];
+	}
 	
 	CAShapeLayer *shape = [CAShapeLayer new];
 	
