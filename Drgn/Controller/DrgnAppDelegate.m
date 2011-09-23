@@ -60,13 +60,12 @@
 	shape.strokeColor = strokeColour;
 	CGColorRelease(strokeColour);
 	
-	shape.bounds = CGRectMake(0, 0, 1, 10);
-	shape.anchorPoint = CGPointMake(0, 1);
+	shape.bounds = CGPathGetBoundingBox(shape.path);
 	shape.position = CGPointMake(CGRectGetMidX(view.frame), CGRectGetMidY(view.frame));
+	
 	shape.lineWidth = 1;
 	
 	[view.layer addSublayer:shape];
-	
 	[shape release];
 }
 

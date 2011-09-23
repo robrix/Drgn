@@ -25,7 +25,7 @@
 
 
 -(void)assertPoint:(CGPoint)actual isEqualToPoint:(CGPoint)expected {
-	STAssertTrue((actual.x == expected.x) && (actual.y == expected.y), @"%@ is not equal to the expected value %@", NSStringFromPoint(actual), NSStringFromPoint(expected));
+	STAssertTrue((actual.x == expected.x) && (actual.y == expected.y), @"%@ != %@", NSStringFromPoint(actual), NSStringFromPoint(expected));
 }
 
 
@@ -41,13 +41,29 @@
 	CGPathRelease(expected);
 }
 
--(void)testTerminalIterationsAreAnchoredAtTheEndOfTheirPath {
+-(void)testIterationOneIsAnchoredAtItsTip {
 	iteration = [DrgnIteration new];
 	
 	[self assertPoint:iteration.anchor isEqualToPoint:CGPointMake(0, 10)];
 }
 
 
-//-(void)testNonterminalIterationsAreAnchoredAt
+-(void)testIterationTwoIsAnchoredAtItsOriginRotatedAroundThePreviousIterationsAnchor {
+	iteration = [DrgnIteration newWithPreviousIteration:[[DrgnIteration new] autorelease]];
+	
+	[self assertPoint:iteration.anchor isEqualToPoint:CGPointMake(10, 10)];
+}
+
+-(void)testIterationThreeIsAnchoredAtItsOriginRotatedAroundThePreviousIterationsAnchor {
+	iteration = [DrgnIteration newWithPreviousIteration:[[DrgnIteration newWithPreviousIteration:[[DrgnIteration new] autorelease]] autorelease]];
+	
+	[self assertPoint:iteration.anchor isEqualToPoint:CGPointMake(20, 0)];
+}
+
+-(void)testIterationFourIsAnchoredAtItsOriginRotatedAroundThePreviousIterationsAnchor {
+	iteration = [DrgnIteration newWithPreviousIteration:[[DrgnIteration newWithPreviousIteration:[[DrgnIteration newWithPreviousIteration:[[DrgnIteration new] autorelease]] autorelease]] autorelease]];
+	
+	[self assertPoint:iteration.anchor isEqualToPoint:CGPointMake(20, -20)];
+}
 
 @end

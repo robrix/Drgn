@@ -1364,7 +1364,7 @@
 								<reference key="NSControlView" ref="273375712"/>
 								<double key="NSValue">1</double>
 								<double key="NSMinValue">1</double>
-								<double key="NSMaxValue">10</double>
+								<double key="NSMaxValue">15</double>
 								<double key="NSIncrement">1</double>
 								<bool key="NSAutorepeat">YES</bool>
 							</object>

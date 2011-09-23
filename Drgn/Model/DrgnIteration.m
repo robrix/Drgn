@@ -10,7 +10,8 @@
 
 @implementation DrgnIteration
 
-@synthesize previous, path;
+@synthesize previous, path, anchor;
+
 
 +(id)newWithPreviousIteration:(DrgnIteration *)previous {
 	return [[self alloc] initWithPreviousIteration:previous];
@@ -23,16 +24,15 @@
 		previous = [_previous retain];
 		
 		if(previous) {
-			CGPathMoveToPoint(_path, NULL, 0, 0);
 			CGPathAddPath(_path, NULL, previous.path);
-			
-			CGPathMoveToPoint(_path, NULL, previous.anchor.x, previous.anchor.y);
-			CGAffineTransform transform = CGAffineTransformMakeTranslation(previous.anchor.x, previous.anchor.y);
-			transform = CGAffineTransformRotate(transform, M_PI / 2);
+			CGAffineTransform transform = CGAffineTransformRotate(CGAffineTransformMakeTranslation(previous.anchor.x, previous.anchor.y), M_PI / -2);
+			anchor = CGPointApplyAffineTransform(previous.anchor, transform);
+			transform = CGAffineTransformRotate(CGAffineTransformMakeTranslation(anchor.x, anchor.y), M_PI / 2);
 			CGPathAddPath(_path, &transform, previous.path);
 		} else {
 			CGPathMoveToPoint(_path, NULL, 0, 0);
 			CGPathAddLineToPoint(_path, NULL, 0, 10);
+			anchor = CGPointMake(0, 10.0);
 		}
 		path = _path;
 	}
@@ -46,11 +46,6 @@
 -(void)dealloc {
 	[previous release];
 	[super dealloc];
-}
-
-
--(CGPoint)anchor {
-	return CGPathGetCurrentPoint(path);
 }
 
 
