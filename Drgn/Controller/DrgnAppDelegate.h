@@ -15,7 +15,4 @@
 @property (nonatomic, assign) IBOutlet NSWindow *window;
 @property (nonatomic, assign) IBOutlet NSView *view;
 
-@property (nonatomic, retain) DrgnIteration *iteration;
-@property (nonatomic, assign) NSUInteger iterationCount;
-
 @end
