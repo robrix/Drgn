@@ -68,10 +68,10 @@
 	shape.bounds = CGPathGetBoundingBox(shape.path);
 	shape.position = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds));
 	
-	shape.lineWidth = 1;
-	
 	CGRect drawingBounds = CGRectInset(view.bounds, 50, 50);
 	CGFloat scale = MIN(CGRectGetWidth(drawingBounds) / CGRectGetWidth(shape.bounds), CGRectGetHeight(drawingBounds) / CGRectGetHeight(shape.bounds));
+	
+	shape.lineWidth = 1.0 / scale;
 	
 	shape.affineTransform = CGAffineTransformMakeScale(scale, scale);
 	
