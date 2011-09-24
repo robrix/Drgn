@@ -10,6 +10,13 @@
 #import "DrgnIteration.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface NSWindow (DrgnYesContentViewIsAViewHowDoIKnowIJustDoOkay)
+
+@property (nonatomic, retain) NSView *contentView;
+
+@end
+
+
 @interface DrgnAppDelegate () <NSWindowDelegate>
 
 @property (nonatomic, retain) DrgnIteration *iteration;
@@ -23,7 +30,7 @@
 
 @implementation DrgnAppDelegate
 
-@synthesize window, view, iteration, curveLayer;
+@synthesize window, iteration, curveLayer;
 
 
 -(void)dealloc {
@@ -36,7 +43,7 @@
 	self.iterationCount = 1;
 	
 	CGColorRef backgroundColour = CGColorCreateGenericGray(0.5, 1.0);
-	view.layer.backgroundColor = backgroundColour;
+	self.window.contentView.layer.backgroundColor = backgroundColour;
 	CGColorRelease(backgroundColour);
 	
 	self.window.delegate = self;
@@ -60,11 +67,8 @@
 		iteration = [DrgnIteration newWithPreviousIteration:[iteration autorelease]];
 	}
 	[self didChangeValueForKey:@"iteration"];
-	
-	for(CALayer *layer in [[view.layer.sublayers copy] autorelease]) {
-		[layer removeFromSuperlayer];
-	}
-	
+
+	[curveLayer removeFromSuperlayer];
 	curveLayer = [CAShapeLayer new];
 	
 	CGAffineTransform pathRotation = CGAffineTransformMakeRotation(M_PI / 4.0 * (iteration.count + 5));
@@ -80,7 +84,7 @@
 	
 	[self positionCurveInView];
 	
-	[view.layer addSublayer:curveLayer];
+	[self.window.contentView.layer addSublayer:curveLayer];
 	[curveLayer release];
 }
 
@@ -90,11 +94,11 @@
 	[CATransaction setAnimationDuration:0];
 	
 	curveLayer.position = (CGPoint){
-		CGRectGetMidX(view.bounds),
-		CGRectGetMidY(view.bounds),
+		CGRectGetMidX(self.window.contentView.bounds),
+		CGRectGetMidY(self.window.contentView.bounds),
 	};
 	
-	CGRect drawingBounds = CGRectInset(view.bounds, 50, 50);
+	CGRect drawingBounds = CGRectInset(self.window.contentView.bounds, 50, 50);
 	CGFloat scale = MIN(CGRectGetWidth(drawingBounds) / CGRectGetWidth(curveLayer.bounds), CGRectGetHeight(drawingBounds) / CGRectGetHeight(curveLayer.bounds));
 	
 	curveLayer.lineWidth = 1.0 / scale;

@@ -13,6 +13,5 @@
 @interface DrgnAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (nonatomic, assign) IBOutlet NSWindow *window;
-@property (nonatomic, assign) IBOutlet NSView *view;
 
 @end
