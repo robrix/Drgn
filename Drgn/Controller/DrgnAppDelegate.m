@@ -59,7 +59,10 @@
 	
 	CAShapeLayer *shape = [CAShapeLayer new];
 	
-	shape.path = iteration.path;
+	CGAffineTransform pathRotation = CGAffineTransformMakeRotation(M_PI / 4.0 * (iteration.count + 5));
+	CGPathRef curve = CGPathCreateCopyByTransformingPath(iteration.path, &pathRotation);
+	shape.path = curve;
+	CGPathRelease(curve);
 	
 	CGColorRef strokeColour = CGColorCreateGenericGray(1, 1);
 	shape.strokeColor = strokeColour;
