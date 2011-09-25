@@ -19,47 +19,59 @@
 
 @interface DrgnAppDelegate () <NSWindowDelegate>
 
-@property (nonatomic, readonly) DrgnIteration *iteration;
-@property (nonatomic, assign) NSUInteger iterationCount;
+@property (nonatomic, retain) DrgnIteration *iteration;
 
 @property (nonatomic, assign) CAShapeLayer *curveLayer;
 
-@property (nonatomic, retain) NSCache *layerCache;
+@property (nonatomic, retain) NSCache *iterationCache;
 
--(void)positionCurveInView;
+-(void)updateCurvePath;
+-(void)centreCurveInWindow;
 
 @end
 
 @implementation DrgnAppDelegate
 
-@synthesize window, curveLayer, layerCache;
-
+@synthesize window, curveLayer, iterationCache, iteration;
 
 -(void)dealloc {
-	[layerCache release];
+	[iterationCache release];
+	[iteration release];
 	[super dealloc];
 }
 
 
 -(void)awakeFromNib {
-	layerCache = [NSCache new];
-	
-	self.iterationCount = 1;
+	iterationCache = [NSCache new];
 	
 	CGColorRef backgroundColour = CGColorCreateGenericGray(0.5, 1.0);
 	self.window.contentView.layer.backgroundColor = backgroundColour;
 	CGColorRelease(backgroundColour);
 	
+	curveLayer = [CAShapeLayer new];
+	CGColorRef strokeColour = CGColorCreateGenericGray(1, 1);
+	curveLayer.strokeColor = strokeColour;
+	CGColorRelease(strokeColour);
+	
+	[self.window.contentView.layer addSublayer:curveLayer];
+	
+	[curveLayer release];
+	
+	if(iteration == nil)
+		self.iterationCount = 1;
+	else
+		[self updateCurvePath];
+	
 	self.window.delegate = self;
 }
 
 
-+(NSSet *)keyPathsForValuesAffectingIteration {
-	return [NSSet setWithObject:@"curveLayer"];
-}
-
--(DrgnIteration *)iteration {
-	return [curveLayer valueForKey:@"iteration"];
+-(void)setIteration:(DrgnIteration *)_iteration {
+	id old = iteration;
+	iteration = [_iteration retain];
+	[old release];
+	
+	[self updateCurvePath];
 }
 
 
@@ -72,47 +84,37 @@
 }
 
 -(void)setIterationCount:(NSUInteger)count {
+	DrgnIteration *_iteration = [iterationCache objectForKey:[NSNumber numberWithUnsignedInteger:count]];
 	
-	[self willChangeValueForKey:@"curveLayer"];
-	[curveLayer removeFromSuperlayer];
-	curveLayer = [layerCache objectForKey:[NSNumber numberWithUnsignedInteger:count]];
-	
-	if(curveLayer == nil) {
-		DrgnIteration *iteration = [DrgnIteration new];
+	if(_iteration == nil) {
+		_iteration = [[DrgnIteration newWithDegree:count] autorelease];
 		
-		NSUInteger i = 1;
-		for(; i < count; i++) {
-			iteration = [DrgnIteration newWithPreviousIteration:[iteration autorelease]];
-		}
-		
-		curveLayer = [CAShapeLayer new];
-		[curveLayer setValue:iteration forKey:@"iteration"];
-		
-		CGAffineTransform pathRotation = CGAffineTransformMakeRotation(M_PI / 4.0 * (iteration.count + 5));
-		CGPathRef curve = CGPathCreateCopyByTransformingPath(iteration.path, &pathRotation);
-		curveLayer.path = curve;
-		CGPathRelease(curve);
-		
-		CGColorRef strokeColour = CGColorCreateGenericGray(1, 1);
-		curveLayer.strokeColor = strokeColour;
-		CGColorRelease(strokeColour);
-		
-		curveLayer.bounds = CGPathGetBoundingBox(curveLayer.path);
-		
-		[self positionCurveInView];
-		
-		[layerCache setObject:curveLayer forKey:[NSNumber numberWithUnsignedInteger:count]];
+		[iterationCache setObject:_iteration forKey:[NSNumber numberWithUnsignedInteger:count]];
 	}
-	[self.window.contentView.layer addSublayer:curveLayer];
 	
-	[self didChangeValueForKey:@"curveLayer"];
+	self.iteration = _iteration;
 }
 
 
--(void)positionCurveInView {
+-(void)updateCurvePath {
 	[CATransaction begin];
 	[CATransaction setAnimationDuration:0];
 	
+	CGAffineTransform pathRotation = CGAffineTransformMakeRotation(M_PI / 4.0 * (iteration.count + 5));
+	CGPathRef curve = CGPathCreateCopyByTransformingPath(iteration.path, &pathRotation);
+	curveLayer.path = curve;
+	CGPathRelease(curve);
+	curveLayer.bounds = CGPathGetBoundingBox(curveLayer.path);
+	
+	[self centreCurveInWindow];
+	
+	[CATransaction commit];
+}
+
+-(void)centreCurveInWindow {
+	[CATransaction begin];
+	[CATransaction setAnimationDuration:0];
+
 	curveLayer.position = (CGPoint){
 		CGRectGetMidX(self.window.contentView.bounds),
 		CGRectGetMidY(self.window.contentView.bounds),
@@ -130,7 +132,16 @@
 
 
 -(void)windowDidResize:(NSNotification *)notification {
-	[self positionCurveInView];
+	[self centreCurveInWindow];
+}
+
+
+-(void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
+	[state encodeObject:self.iteration forKey:@"iteration"];
+}
+
+-(void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
+	self.iteration = [state decodeObjectForKey:@"iteration"];
 }
 
 @end

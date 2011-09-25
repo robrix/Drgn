@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DrgnIteration : NSObject
+@interface DrgnIteration : NSObject <NSCoding>
 
++(id)newWithDegree:(NSUInteger)degree;
 +(id)newWithPreviousIteration:(DrgnIteration *)previous;
 -(id)initWithPreviousIteration:(DrgnIteration *)_previous;
 

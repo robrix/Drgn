@@ -13,6 +13,14 @@
 @synthesize previous, path, anchor, count;
 
 
++(id)newWithDegree:(NSUInteger)degree {
+	DrgnIteration *iteration = nil; 
+	for(NSUInteger i = 0; i < degree; i++) {
+		iteration = [DrgnIteration newWithPreviousIteration:[iteration autorelease]];
+	}
+	return iteration;
+}
+
 +(id)newWithPreviousIteration:(DrgnIteration *)previous {
 	return [[self alloc] initWithPreviousIteration:previous];
 }
@@ -70,6 +78,15 @@
 		count = 1 + previous.count;
 	}
 	return count;
+}
+
+
+-(id)initWithCoder:(NSCoder *)decoder {
+	return [self initWithPreviousIteration:[decoder decodeObjectForKey:@"previous"]];
+}
+
+-(void)encodeWithCoder:(NSCoder *)encoder {
+	[encoder encodeObject:previous forKey:@"previous"];
 }
 
 @end
