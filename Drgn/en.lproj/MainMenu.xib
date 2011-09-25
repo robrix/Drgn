@@ -1383,7 +1383,6 @@
 							<string key="NSFrame">{{444, 17}, {19, 27}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSReuseIdentifierKey">_NS:3977</string>
@@ -1395,7 +1394,7 @@
 								<reference key="NSControlView" ref="273375712"/>
 								<double key="NSValue">1</double>
 								<double key="NSMinValue">1</double>
-								<double key="NSMaxValue">15</double>
+								<double key="NSMaxValue">16</double>
 								<double key="NSIncrement">1</double>
 								<bool key="NSAutorepeat">YES</bool>
 							</object>
