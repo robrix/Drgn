@@ -19,10 +19,12 @@
 
 @interface DrgnAppDelegate () <NSWindowDelegate>
 
-@property (nonatomic, retain) DrgnIteration *iteration;
+@property (nonatomic, readonly) DrgnIteration *iteration;
 @property (nonatomic, assign) NSUInteger iterationCount;
 
 @property (nonatomic, assign) CAShapeLayer *curveLayer;
+
+@property (nonatomic, retain) NSCache *layerCache;
 
 -(void)positionCurveInView;
 
@@ -30,16 +32,18 @@
 
 @implementation DrgnAppDelegate
 
-@synthesize window, iteration, curveLayer;
+@synthesize window, curveLayer, layerCache;
 
 
 -(void)dealloc {
-	[iteration release];
+	[layerCache release];
 	[super dealloc];
 }
 
 
 -(void)awakeFromNib {
+	layerCache = [NSCache new];
+	
 	self.iterationCount = 1;
 	
 	CGColorRef backgroundColour = CGColorCreateGenericGray(0.5, 1.0);
@@ -50,42 +54,58 @@
 }
 
 
++(NSSet *)keyPathsForValuesAffectingIteration {
+	return [NSSet setWithObject:@"curveLayer"];
+}
+
+-(DrgnIteration *)iteration {
+	return [curveLayer valueForKey:@"iteration"];
+}
+
+
 +(NSSet *)keyPathsForValuesAffectingIterationCount {
 	return [NSSet setWithObject:@"iteration"];
 }
 
 -(NSUInteger)iterationCount {
-	return iteration.count;
+	return self.iteration.count;
 }
 
 -(void)setIterationCount:(NSUInteger)count {
-	[self willChangeValueForKey:@"iteration"];
-	iteration = [DrgnIteration new];
 	
-	NSUInteger i = 1;
-	for(; i < count; i++) {
-		iteration = [DrgnIteration newWithPreviousIteration:[iteration autorelease]];
-	}
-	[self didChangeValueForKey:@"iteration"];
-
+	[self willChangeValueForKey:@"curveLayer"];
 	[curveLayer removeFromSuperlayer];
-	curveLayer = [CAShapeLayer new];
+	curveLayer = [layerCache objectForKey:[NSNumber numberWithUnsignedInteger:count]];
 	
-	CGAffineTransform pathRotation = CGAffineTransformMakeRotation(M_PI / 4.0 * (iteration.count + 5));
-	CGPathRef curve = CGPathCreateCopyByTransformingPath(iteration.path, &pathRotation);
-	curveLayer.path = curve;
-	CGPathRelease(curve);
-	
-	CGColorRef strokeColour = CGColorCreateGenericGray(1, 1);
-	curveLayer.strokeColor = strokeColour;
-	CGColorRelease(strokeColour);
-	
-	curveLayer.bounds = CGPathGetBoundingBox(curveLayer.path);
-	
-	[self positionCurveInView];
-	
+	if(curveLayer == nil) {
+		DrgnIteration *iteration = [DrgnIteration new];
+		
+		NSUInteger i = 1;
+		for(; i < count; i++) {
+			iteration = [DrgnIteration newWithPreviousIteration:[iteration autorelease]];
+		}
+		
+		curveLayer = [CAShapeLayer new];
+		[curveLayer setValue:iteration forKey:@"iteration"];
+		
+		CGAffineTransform pathRotation = CGAffineTransformMakeRotation(M_PI / 4.0 * (iteration.count + 5));
+		CGPathRef curve = CGPathCreateCopyByTransformingPath(iteration.path, &pathRotation);
+		curveLayer.path = curve;
+		CGPathRelease(curve);
+		
+		CGColorRef strokeColour = CGColorCreateGenericGray(1, 1);
+		curveLayer.strokeColor = strokeColour;
+		CGColorRelease(strokeColour);
+		
+		curveLayer.bounds = CGPathGetBoundingBox(curveLayer.path);
+		
+		[self positionCurveInView];
+		
+		[layerCache setObject:curveLayer forKey:[NSNumber numberWithUnsignedInteger:count]];
+	}
 	[self.window.contentView.layer addSublayer:curveLayer];
-	[curveLayer release];
+	
+	[self didChangeValueForKey:@"curveLayer"];
 }
 
 

@@ -29,6 +29,15 @@
 }
 
 
+-(DrgnIteration *)iterationOfDegree:(NSUInteger)degree {
+	DrgnIteration *_iteration = nil;
+	for(NSUInteger i = 0; i < degree; i++) {
+		_iteration = [DrgnIteration newWithPreviousIteration:[_iteration autorelease]];
+	}
+	return _iteration;
+}
+
+
 -(void)testTerminalIterationsConsistOfAVerticalLine {
 	iteration = [DrgnIteration new];
 	
@@ -42,28 +51,41 @@
 }
 
 -(void)testIterationOneIsAnchoredAtItsTip {
-	iteration = [DrgnIteration new];
+	iteration = [self iterationOfDegree:1];
 	
 	[self assertPoint:iteration.anchor isEqualToPoint:CGPointMake(0, 10)];
 }
 
 
 -(void)testIterationTwoIsAnchoredAtItsOriginRotatedAroundThePreviousIterationsAnchor {
-	iteration = [DrgnIteration newWithPreviousIteration:[[DrgnIteration new] autorelease]];
+	iteration = [self iterationOfDegree:2];
 	
 	[self assertPoint:iteration.anchor isEqualToPoint:CGPointMake(10, 10)];
 }
 
 -(void)testIterationThreeIsAnchoredAtItsOriginRotatedAroundThePreviousIterationsAnchor {
-	iteration = [DrgnIteration newWithPreviousIteration:[[DrgnIteration newWithPreviousIteration:[[DrgnIteration new] autorelease]] autorelease]];
+	iteration = [self iterationOfDegree:3];
 	
 	[self assertPoint:iteration.anchor isEqualToPoint:CGPointMake(20, 0)];
 }
 
 -(void)testIterationFourIsAnchoredAtItsOriginRotatedAroundThePreviousIterationsAnchor {
-	iteration = [DrgnIteration newWithPreviousIteration:[[DrgnIteration newWithPreviousIteration:[[DrgnIteration newWithPreviousIteration:[[DrgnIteration new] autorelease]] autorelease]] autorelease]];
+	iteration = [self iterationOfDegree:4];
 	
 	[self assertPoint:iteration.anchor isEqualToPoint:CGPointMake(20, -20)];
+}
+
+
+-(void)testTerminalIterationsHaveACountOfOne {
+	iteration = [self iterationOfDegree:1];
+	
+	STAssertEquals(iteration.count, (NSUInteger)1, @"Terminal iterations should have a count of 1.");
+}
+
+-(void)testNonterminalIterationsHaveACountOneGreaterThanTheirPreviousIterations {
+	iteration = [self iterationOfDegree:4];
+	
+	STAssertEquals(iteration.count, (NSUInteger)4, @"Terminal iterations should have a count of 4.");
 }
 
 @end
